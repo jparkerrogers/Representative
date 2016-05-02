@@ -40,7 +40,7 @@ class ResultsTableViewController: UITableViewController {
     // MARK: - Table view data source
     
     
-    
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return self.repsArray.count
@@ -51,16 +51,25 @@ class ResultsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("representativeCell", forIndexPath: indexPath)
         
         let representative = self.repsArray[indexPath.row]
-        cell.textLabel?.text = representative.name
-        cell.detailTextLabel?.text = representative.party
-        if representative.party == "D" {
-            cell.textLabel?.textColor = UIColor.redColor()
-        } else if representative.party == "R"{
-            cell.detailTextLabel?.textColor = UIColor.redColor()
-        } else  if representative.party == "I"{
-            cell.detailTextLabel?.textColor = UIColor.yellowColor()
-        }
         
+        if let name = representative.name, party = representative.party {
+            cell.textLabel?.text = name
+            cell.detailTextLabel?.text = party
+            
+            switch party {
+                case "D":
+                    if party == "D" {
+                        cell.detailTextLabel?.textColor = UIColor.blueColor()
+                }
+                case "R":
+                    if party == "R" {
+                        cell.detailTextLabel?.textColor = UIColor.redColor()
+                }
+            default :
+                cell.detailTextLabel?.textColor = UIColor.yellowColor()
+                
+            }
+        }
         
         return cell
     }
